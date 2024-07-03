@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LABFREE - Manutenção</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Barra de navegação no topo */
+        .navbar {
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between; /* Alterado para espaçar os itens */
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            font-size: 24px;
+            margin-left: 20px; /* Espaço à esquerda */
+        }
+
+        .menu-button {
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 20px; /* Espaço à direita */
+        }
+
+        .menu-button:focus {
+            outline: none;
+        }
+
+        /* Menu lateral */
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1001;
+        }
+
+        .sidenav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            background-color: #575757;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        /* Conteúdo principal centralizado */
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin-top: 60px; /* Compensa a altura da barra de navegação */
+        }
+
+        /* Estilo dos botões */
+        .button-container {
+            margin: 20px;
+        }
+
+        .button-container button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px; /* Pontas arredondadas */
+            border: none;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        /* Estilo dos pop-ups */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .popup a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        /* Sobreposição para escurecer o fundo */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        /* Estilo do rodapé */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <div class="navbar">
+        <h1>LABFREE - Aplicação para manutenção</h1>
+        <button class="menu-button" onclick="openNav()">&#9776;</button>
+    </div>
+
+    <!-- Menu lateral -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="https://labfree.com.br/" target="_blank">Nosso site</a>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <div class="button-container">
+            <!-- Botões que abrem os pop-ups -->
+            <button onclick="showPopup(1)">Roteiros</button>
+            <button onclick="showPopup(2)">Preventiva</button>
+            <button onclick="showPopup(3)">Opção 3</button>
+        </div>
+    </div>
+
+    <!-- Sobreposição -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+    <!-- Pop-up 1 -->
+    <div class="popup" id="popup1">
+        <h3>TESTE 1</h3>
+        <a href="https://labfree.com.br/preventiva/00%20-%20Roteiro%20de%20Manutencao.pdf" target="_blank">Roteiro de Manutenção Preventiva</a>
+        <a href="https://example.com/link2" target="_blank">Link 2</a>
+        <a href="https://example.com/link3" target="_blank">Link 3</a>
+        <a href="https://example.com/link4" target="_blank">Link 4</a>
+        <a href="https://example.com/link5" target="_blank">Link 5</a>
+    </div>
+
+    <!-- Pop-up 2 -->
+    <div class="popup" id="popup2">
+        <h3>PREVENTIVA</h3>
+        <a href="https://labfree.com.br/preventiva/apps/Crystal%20Disk%20Info%20v8.17.14.rar" target="_blank">Crystal Disk</a>
+        <a href="https://download.cpuid.com/cpu-z/cpu-z_2.09-en.exe" target="_blank">CPU-Z</a>
+        <a href="https://www.ccleaner.com/pt-br/ccleaner/download/standard" target="_blank">CCleaner</a>
+        <a href="https://anydesk.com.cn/en/downloads/thank-you?dv=win_exe" target="_blank">AnyDesk</a>
+        <a href="https://labfree.com.br/preventiva/apps/Senha.txt" target="_blank">Senhas</a>
+    </div>
+
+    <!-- Pop-up 3 -->
+    <div class="popup" id="popup3">
+        <h3>Links Opção 3</h3>
+        <a href="https://example.com/link11" target="_blank">Link 11</a>
+        <a href="https://example.com/link12" target="_blank">Link 12</a>
+        <a href="https://example.com/link13" target="_blank">Link 13</a>
+        <a href="https://example.com/link14" target="_blank">Link 14</a>
+        <a href="https://example.com/link15" target="_blank">Link 15</a>
+    </div>
+
+    <script>
+        // Função para abrir o menu lateral
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        // Função para fechar o menu lateral
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        // Função para mostrar o pop-up correspondente
+        function showPopup(popupNumber) {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup' + popupNumber).style.display = 'block';
+        }
+
+        // Função para fechar todos os pop-ups
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.querySelectorAll('.popup').forEach(popup => {
+                popup.style.display = 'none';
+            });
+        }
+    </script>
+
+    <!-- Rodapé -->
+    <footer>
+        &copy; 2024 LABFREE. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
